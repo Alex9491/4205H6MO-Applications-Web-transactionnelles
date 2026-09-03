@@ -21,15 +21,30 @@ L'application permet de résoudre le problème de la difficulté à organiser de
 
 ## Démarrage
 
+Ajouter le bloc suivant dans le fichier de configuration Apache utilisé par AMPPS, en adaptant le chemin physique :
+
+    Alias /projet "C:\ProjetWeb"
+
+    <Directory "C:\ProjetWeb">
+    Options -Indexes +FollowSymLinks
+    AllowOverride All
+    Require all granted
+    </Directory>
+
+Redémarrer ensuite Apache et démarrer MySQL dans AMPPS, puis ouvrir :
+
+http://localhost/projet/
 
 
 ## Constructions
 
+Aucune compilation n'est nécessaire pour cette version.
 
 
 ## Tests
 
-
+Rien.
 
 ## Configurations
 
+Rien.
