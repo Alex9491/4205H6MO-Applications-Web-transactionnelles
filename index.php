@@ -23,5 +23,6 @@ $versionPhp = PHP_VERSION;
             Version PHP: <?= htmlspecialchars($versionPhp)?>
         </h3>
     </div>
+    <a href="recits.php">recits</a>
 </body>
 </html>

@@ -1,8 +1,8 @@
 # Collection collaborative de recettes et de menus
 
-Cette application web permet permet aux utilisateur de créer, regarder, partager, supprimer et ajouter leur avis sur des recettes déja créées.
+Cette application web permet permet aux utilisateur de créer, regarder, partager, supprimer et ajouter leur avis sur des recettes et menus déja créées.
 
-L'application permet de résoudre le problème de la difficulté à organiser des recettes.
+L'application permet de résoudre le problème de la difficulté à organiser des recettes et des menus.
 
 ## Prérequis
 
