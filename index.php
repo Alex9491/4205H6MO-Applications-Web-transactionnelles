@@ -22,7 +22,14 @@ $versionPhp = PHP_VERSION;
         <h3>
             Version PHP: <?= htmlspecialchars($versionPhp)?>
         </h3>
-    </div>
+    <p>
+        L'application permet de résoudre le problème de la difficulté
+        à organiser des recettes et des menus. Les personnes qui utiliseront cette application seront toutes celles qui s'intéressent à la cuisine,
+        comme les cuisiniers et les personnes qui souhaitent découvrir de nouvelles recettes et trouver des idées de recettes. 
+    </p>    
     <a href="recits.php">recits</a>
+    <a href="">recettes</a>
+    <a href="">menus</a>
+    </div>
 </body>
 </html>
