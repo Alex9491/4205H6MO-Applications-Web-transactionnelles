@@ -1,5 +1,5 @@
 <?php
-$nomProjet = 'Recette';
+$nomProjet = 'Collaboration de recettes et de menu';
 $auteur = 'Alex Boyajian';
 $versionPhp = PHP_VERSION;
 ?>
@@ -28,8 +28,8 @@ $versionPhp = PHP_VERSION;
         comme les cuisiniers et les personnes qui souhaitent découvrir de nouvelles recettes et trouver des idées de recettes. 
     </p>    
     <a href="recits.php">recits</a>
-    <a href="">recettes</a>
-    <a href="">menus</a>
+    <a href="recettes.php">recettes</a>
+    <a href="menu.php">menus</a>
     </div>
 </body>
 </html>
