@@ -166,7 +166,7 @@ INSERT INTO `Recettes` (`idrecette`,`idutilisateur`,`idcategorie`,`nom`,`descrip
 (4, 1, 2, 'Crêpes', 'Crêpes simples au sucre.'),
 (5, 1, 2, 'Gâteau', 'Gâteau au chocolat.'),
 (6, 1, 1, 'Poulet', 'Poulet rôti aux légumes.'),
-(7, 1, 1, 'Poutine', 'Frites, fromage et sauce brune.'),
+(7, 1, 1, 'Poutine', 'Frites, fromage et sauce brune.');
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
