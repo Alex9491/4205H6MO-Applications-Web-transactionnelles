@@ -10,15 +10,10 @@ $recettes = [];
 $messageErreur = null;
 
 try {
-    require __DIR__ . '/config/bdd.php';
+    require_once __DIR__ . '/config/bdd.php';
+    require_once __DIR__ . '/Modeles/recette-modele.php';
 
-    $requete = $pdo->prepare(
-        'SELECT idrecette, idutilisateur, idcategorie, nom, description
-         FROM Recettes
-         ORDER BY idrecette'
-    );
-    $requete->execute();
-    $recettes = $requete->fetchAll();
+    $recettes = afficherRecettes($pdo);
 } catch (Throwable $exception) {
     error_log($exception->getMessage());
     $messageErreur = 'Impossible de charger les recettes.';
@@ -49,7 +44,7 @@ try {
         L'application permet de résoudre le problème de la difficulté
         à organiser des recettes et des menus. Les personnes qui utiliseront cette application seront toutes celles qui s'intéressent à la cuisine,
         comme les cuisiniers et les personnes qui souhaitent découvrir de nouvelles recettes et trouver des idées de recettes. 
-    </p>    
+    </p>
 
 
     <a href="recits.php">recits</a>
