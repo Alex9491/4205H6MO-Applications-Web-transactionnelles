@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$nomProjet = 'Collaboration de recettes et de menu';
+$titrePage = 'Collaboration de recettes et de menu';
 $auteur = 'Alex Boyajian';
 $versionPhp = PHP_VERSION;
 
@@ -30,12 +30,12 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($nomProjet)?></title>
+    <title><?= htmlspecialchars($titrePage)?></title>
 </head>
 <body>
     <div>
         <h1>
-            <?= htmlspecialchars($nomProjet)?>
+            <?= htmlspecialchars($titrePage)?>
         </h1>
         <h2>
             <?= htmlspecialchars($auteur)?>
