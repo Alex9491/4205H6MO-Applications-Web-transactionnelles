@@ -20,6 +20,7 @@ try {
     
     $titrePage = 'Erreur';
     $messageErreur = 'Impossible de charger les recettes.';
+    require __DIR__ . '/Vues/erreur.php';
 }
 ?>
 
