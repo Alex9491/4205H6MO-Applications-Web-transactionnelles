@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function afficherRecettes(PDO $pdo): array
+function obtenirRecettes(PDO $pdo): array
 {
     $requete = $pdo->prepare(
         'SELECT idrecette, idutilisateur, idcategorie, nom, description

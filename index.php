@@ -12,10 +12,13 @@ $messageErreur = null;
 try {
     require_once __DIR__ . '/config/bdd.php';
     require_once __DIR__ . '/Modeles/recette-modele.php';
+    require_once __DIR__ . '/Controleurs/recette-controleur.php';
+    afficherRecettes($pdo);
 
-    $recettes = afficherRecettes($pdo);
 } catch (Throwable $exception) {
     error_log($exception->getMessage());
+    
+    $titrePage = 'Erreur';
     $messageErreur = 'Impossible de charger les recettes.';
 }
 ?>
