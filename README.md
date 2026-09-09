@@ -16,8 +16,9 @@ L'application permet de résoudre le problème de la difficulté à organiser de
 ## Installation
 
 1. Récupérer le dépôt.
-2. Importer le fichier SQL dans MySQL.
-3. Adapter la configuration locale sans versionner les secrets.
+2. Importer le fichier `database/mydb.sql` dans MySQL.
+3. Exécuter ensuite le fichier `database/ajout-10-lignes.sql` dans MySQL.
+4. Adapter la configuration locale sans versionner les secrets.
 
 ## Démarrage
 
