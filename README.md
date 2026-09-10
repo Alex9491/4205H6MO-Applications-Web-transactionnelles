@@ -48,4 +48,4 @@ Rien.
 
 ## Configurations
 
-Rien.
+La connexion à la base de données utilise PDO et les variables d'environnement `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` et `DB_PASSWORD`.

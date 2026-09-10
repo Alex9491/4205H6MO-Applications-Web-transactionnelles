@@ -2,58 +2,6 @@
 
 declare(strict_types=1);
 
-$titrePage = 'Collaboration de recettes et de menu';
-$auteur = 'Alex Boyajian';
-$versionPhp = PHP_VERSION;
+require_once __DIR__ . '/Controleurs/accueil-controleur.php';
 
-$recettes = [];
-$messageErreur = null;
-
-try {
-    require_once __DIR__ . '/config/bdd.php';
-    require_once __DIR__ . '/Modeles/recette-modele.php';
-    require_once __DIR__ . '/Controleurs/recette-controleur.php';
-    afficherRecettes($pdo);
-
-} catch (Throwable $exception) {
-    error_log($exception->getMessage());
-    
-    $titrePage = 'Erreur';
-    $messageErreur = 'Impossible de charger les recettes.';
-    require __DIR__ . '/Vues/erreur.php';
-}
-?>
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($titrePage)?></title>
-</head>
-<body>
-    <div>
-        <h1>
-            <?= htmlspecialchars($titrePage)?>
-        </h1>
-        <h2>
-            <?= htmlspecialchars($auteur)?>
-        </h2>
-        <h3>
-            Version PHP: <?= htmlspecialchars($versionPhp)?>
-        </h3>
-    <p>
-        L'application permet de résoudre le problème de la difficulté
-        à organiser des recettes et des menus. Les personnes qui utiliseront cette application seront toutes celles qui s'intéressent à la cuisine,
-        comme les cuisiniers et les personnes qui souhaitent découvrir de nouvelles recettes et trouver des idées de recettes. 
-    </p>
-
-
-    <a href="recits.php">recits</a>
-    <a href="recettes.php">recettes</a>
-    <a href="menu.php">menus</a>
-    </div>
-</body>
-</html>
+afficherAccueil();
