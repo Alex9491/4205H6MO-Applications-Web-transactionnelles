@@ -14,3 +14,20 @@ function obtenirRecettes(PDO $pdo): array
 
     return $requete->fetchAll();
 }
+
+function obtenirRecette(PDO $pdo, int $idRecette): ?array
+{
+    $requete = $pdo->prepare(
+        'SELECT idrecette, idutilisateur, idcategorie, nom, description
+         FROM Recettes
+         WHERE idrecette = :idrecette'
+    );
+
+    $requete->execute([
+        'idrecette' => $idRecette
+    ]);
+
+    $recette = $requete->fetch();
+
+    return $recette ?: null;
+}
