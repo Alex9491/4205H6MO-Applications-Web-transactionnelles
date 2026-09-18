@@ -17,3 +17,17 @@ function obtenirAvisRecette(PDO $pdo, int $idRecette): array
 
     return $requete->fetchAll();
 }
+
+function ajouterAvis(PDO $pdo, int $idRecette,int $note): int {
+    $requete = $pdo->prepare(
+        'INSERT INTO Avis (idrecette, note)
+         VALUES (:idrecette, :note)'
+    );
+
+    $requete->execute([
+        'idrecette' => $idRecette,
+        'note' => $note,
+    ]);
+
+    return (int) $pdo->lastInsertId();
+}

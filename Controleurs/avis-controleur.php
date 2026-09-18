@@ -47,4 +47,8 @@ function ajouterAvisAction(PDO $pdo): void
         ]);
         return;
     }
+
+    ajouterAvis($pdo, $idRecette, $note);
+    header('Location: index.php?action=recette&id=' . $idRecette);
+    exit;
 }
