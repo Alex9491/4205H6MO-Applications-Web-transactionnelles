@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/config/securite.php';
 require_once __DIR__ . '/Modeles/recette-modele.php';
 require_once __DIR__ . '/Modeles/avis-modele.php';
 require_once __DIR__ . '/Controleurs/accueil-controleur.php';
 require_once __DIR__ . '/Controleurs/recette-controleur.php';
 require_once __DIR__ . '/Controleurs/erreur-controleur.php';
+
+demarrerSession();
 
 $action = $_GET['action'] ?? 'recettes';
 
