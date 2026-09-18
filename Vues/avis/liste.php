@@ -20,6 +20,12 @@
                     Date :
                     <?= htmlspecialchars((string) $Avis['dateavis'], ENT_QUOTES, 'UTF-8') ?>
                 </p>
+
+                <p>
+                    <a href="index.php?action=confirmer-suppression-avis&id=<?= (int) $Avis['idavis'] ?>">
+                        Supprimer
+                    </a>
+                </p>
             </article>
         <?php endforeach; ?>
     <?php endif; ?>

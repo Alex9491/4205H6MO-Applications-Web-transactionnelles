@@ -62,6 +62,38 @@ try {
             ajouterAvisAction($pdo);
             break;
 
+        case 'confirmer-suppression-avis':
+            $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+            if ($id === false || $id === null) {
+                afficherErreur('Identifiant invalide.', 400);
+                break;
+            }
+
+            confirmerSuppressionAvis($pdo, $id);
+            break;
+
+        case 'supprimer-avis':
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                afficherErreur('Méthode non permise.', 405);
+                break;
+            }
+
+            if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
+                afficherErreur('Requête refusée.', 403);
+                break;
+            }
+
+            $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+            if ($id === false || $id === null) {
+                afficherErreur('Identifiant invalide.', 400);
+                break;
+            }
+
+            supprimerAvisAction($pdo, $id);
+            break;
+
         default:
             afficherErreur('Page introuvable.', 404);
     }

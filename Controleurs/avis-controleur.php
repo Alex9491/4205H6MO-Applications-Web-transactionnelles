@@ -52,3 +52,30 @@ function ajouterAvisAction(PDO $pdo): void
     header('Location: index.php?action=recette&id=' . $idRecette);
     exit;
 }
+
+function confirmerSuppressionAvis(PDO $pdo, int $id): void
+{
+    $avis = obtenirAvis($pdo, $id);
+
+    if ($avis === null) {
+        afficherErreur('Avis introuvable.', 404);
+        return;
+    }
+
+    $titrePage = 'Confirmer la suppression';
+    require __DIR__ . '/../Vues/avis/confirmer-suppression.php';
+}
+
+function supprimerAvisAction(PDO $pdo, int $id): void
+{
+    $avis = obtenirAvis($pdo, $id);
+
+    if ($avis === null) {
+        afficherErreur('Avis introuvable.', 404);
+        return;
+    }
+
+    supprimerAvis($pdo, $id);
+    header('Location: index.php?action=recette&id=' . $avis['idrecette']);
+    exit;
+}
