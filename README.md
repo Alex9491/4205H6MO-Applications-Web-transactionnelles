@@ -12,6 +12,7 @@ L'application permet de résoudre le problème de la difficulté à organiser de
 - MySQL
 - Git
 - Un navigateur Web
+- Xdebug
 
 ## Installation
 
@@ -44,7 +45,10 @@ Aucune compilation n'est nécessaire pour cette version.
 
 ## Tests
 
-Rien.
+-Ajouter un avis à une recette
+Complété
+-Supprimer un avis après confirmation
+Complété
 
 ## Configurations
 
