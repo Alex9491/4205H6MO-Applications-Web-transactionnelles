@@ -6,13 +6,14 @@ require_once __DIR__ . '/config/securite.php';
 require_once __DIR__ . '/Modeles/recette-modele.php';
 require_once __DIR__ . '/Modeles/avis-modele.php';
 require_once __DIR__ . '/Controleurs/accueil-controleur.php';
+require_once __DIR__ . '/Controleurs/recits-controleur.php';
 require_once __DIR__ . '/Controleurs/recette-controleur.php';
 require_once __DIR__ . '/Controleurs/avis-controleur.php';
 require_once __DIR__ . '/Controleurs/erreur-controleur.php';
 
 demarrerSession();
 
-$action = $_GET['action'] ?? 'recettes';
+$action = $_GET['action'] ?? 'accueil';
 
 try {
     require_once __DIR__ . '/config/bdd.php';
@@ -20,6 +21,10 @@ try {
     switch ($action) {
         case 'accueil':
             afficherAccueil();
+            break;
+            
+        case 'recits':
+            afficherRecits();
             break;
 
         case 'recettes':

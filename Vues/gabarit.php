@@ -8,6 +8,13 @@
 </head>
 
 <body>
+
+    <nav>
+        <a href="index.php?action=accueil">Accueil</a>
+        <a href="index.php?action=recettes">Recettes</a>
+        <a href="index.php?action=recits">Récits</a>
+    </nav>
+
     <main>
         <?= $contenu ?>
     </main>
