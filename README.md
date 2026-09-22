@@ -45,9 +45,34 @@ Aucune compilation n'est nécessaire pour cette version.
 
 ## Tests
 
--Ajouter un avis à une recette
+Ajouter un avis à une recette
 Complété
--Supprimer un avis après confirmation
+
+Supprimer un avis après confirmation
+Complété
+
+Liste et détail des recettes fonctionnent
+Complété
+
+Un identifiant ou une action inconnue retourne une page 404
+Complété
+
+Le formulaire d'ajout d'un avis refuse les valeurs invalides et conserve les valeurs valides
+Complété
+
+Une soumission valide crée un avis et redirige vers la recette
+Complété
+
+La confirmation affiche l'avis sans le supprimer et Annuler retourne à la recette
+Complété
+
+La confirmation par POST supprime l'avis et redirige vers la recette
+Complété
+
+Une action d'écriture appelée avec GET retourne 405 et un jeton CSRF invalide retourne 403
+Complété
+
+Une actualisation après une redirection ne répète pas la création ou la suppression
 Complété
 
 ## Configurations
