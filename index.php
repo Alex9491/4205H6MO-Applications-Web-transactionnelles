@@ -29,7 +29,6 @@ try {
     $statut = in_array($exception->getCode(), [400, 403, 404, 405], true)
         ? $exception->getCode()
         : 500;
-
     $message = $statut === 500
         ? 'Une erreur empêche le traitement de la demande.'
         : $exception->getMessage();
