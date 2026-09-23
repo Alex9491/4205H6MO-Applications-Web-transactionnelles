@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php
+
+declare(strict_types=1);
+?>
 
 <?php $premierChampErreur = array_key_first($erreurs); ?>
 
@@ -48,7 +51,3 @@
     </a>
 
 </form>
-
-<?php
-$contenu = ob_get_clean();
-require __DIR__ . '/../gabarit.php';

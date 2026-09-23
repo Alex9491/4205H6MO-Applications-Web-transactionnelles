@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php
+
+declare(strict_types=1);
+?>
 
 <h1>Confirmer la suppression</h1>
 
@@ -29,7 +32,3 @@
         Annuler
     </a>
 </form>
-
-<?php
-$contenu = ob_get_clean();
-require __DIR__ . '/../gabarit.php';

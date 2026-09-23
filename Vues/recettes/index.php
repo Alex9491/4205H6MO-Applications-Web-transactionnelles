@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php
+
+declare(strict_types=1);
+?>
 
 <h1><?= htmlspecialchars($titrePage, ENT_QUOTES, 'UTF-8') ?></h1>
 
@@ -18,7 +21,3 @@
         </article>
     <?php endforeach; ?>
 <?php endif; ?>
-
-<?php
-$contenu = ob_get_clean();
-require __DIR__ . '/../gabarit.php';

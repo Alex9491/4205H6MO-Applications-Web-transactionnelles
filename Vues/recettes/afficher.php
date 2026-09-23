@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php
+
+declare(strict_types=1);
+?>
 
 <p>
     <a href="index.php?action=recettes">Retour aux recettes</a>
@@ -13,7 +16,3 @@
 </article>
 
 <?php require __DIR__ . '/../avis/liste.php'; ?>
-
-<?php
-$contenu = ob_get_clean();
-require __DIR__ . '/../gabarit.php';
