@@ -7,15 +7,18 @@ class Routeur
     private $controleurRecette;
     private $controleurAvis;
     private $controleurErreur;
+    private $controleurUtilisateur;
 
     public function __construct(
         ControleurRecette $controleurRecette,
         ControleurAvis $controleurAvis,
-        ControleurErreur $controleurErreur
+        ControleurErreur $controleurErreur,
+        ControleurUtilisateur $controleurUtilisateur
     ) {
         $this->controleurRecette = $controleurRecette;
         $this->controleurAvis = $controleurAvis;
         $this->controleurErreur = $controleurErreur;
+        $this->controleurUtilisateur = $controleurUtilisateur;
     }
 
     public function router(): void
@@ -29,6 +32,20 @@ class Routeur
 
             case 'recette':
                 $this->controleurRecette->afficher($this->lireIdGet());
+                break;
+
+            case 'connexion':
+                $this->controleurUtilisateur->connexion();
+                break;
+
+            case 'authentifier':
+                $this->exigerEcriture($_POST['jeton_csrf'] ?? null);
+                $this->controleurUtilisateur->authentifier($_POST);
+                break;
+
+            case 'deconnexion':
+                $this->exigerEcriture($_POST['jeton_csrf'] ?? null);
+                $this->controleurUtilisateur->deconnecter();
                 break;
 
             case 'avis-formulaire':
