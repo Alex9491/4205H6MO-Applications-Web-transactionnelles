@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <?php $baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/'; ?>
+    <base href="<?= htmlspecialchars($baseUrl, ENT_QUOTES, 'UTF-8') ?>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($titrePage, ENT_QUOTES, 'UTF-8') ?></title>
@@ -9,11 +11,11 @@
 
 <body>
 
-    <nav>
-        <a href="index.php?action=accueil">Accueil</a>
-        <a href="index.php?action=recettes">Recettes</a>
-        <a href="index.php?action=recits">Récits</a>
-    </nav>
+<nav>
+    <a href="index.php?action=accueil">Accueil</a>
+    <a href="recettes">Recettes</a>
+    <a href="index.php?action=recits">Récits</a>
+</nav>
 
     <main>
         <?= $contenu ?>

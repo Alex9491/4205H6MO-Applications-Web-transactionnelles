@@ -1,7 +1,7 @@
 <section>
     <h2>Avis</h2>
     <p>
-        <a href="index.php?action=avis-formulaire&id=<?= (int) $recette['idrecette'] ?>">
+        <a href="avis-formulaire/<?= (int) $recette['idrecette'] ?>">
             Ajouter un avis
         </a>
     </p>
@@ -22,7 +22,7 @@
                 </p>
 
                 <p>
-                    <a href="index.php?action=confirmer-suppression-avis&id=<?= (int) $Avis['idavis'] ?>">
+                    <a href="confirmer-suppression-avis/<?= (int) $Avis['idavis'] ?>">
                         Supprimer
                     </a>
                 </p>

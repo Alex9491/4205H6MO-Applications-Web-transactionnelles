@@ -4,7 +4,7 @@ declare(strict_types=1);
 ?>
 
 <p>
-    <a href="index.php?action=recettes">Retour aux recettes</a>
+    <a href="recettes">Retour aux recettes</a>
 </p>
 
 <article>

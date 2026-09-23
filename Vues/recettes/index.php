@@ -11,7 +11,7 @@ declare(strict_types=1);
     <?php foreach ($recettes as $recette): ?>
         <article>
             <h2>
-                <a href="index.php?action=recette&id=<?= (int) $recette['idrecette'] ?>">
+                <a href="recette/<?= (int) $recette['idrecette'] ?>">
                     <?= htmlspecialchars($recette['nom'], ENT_QUOTES, 'UTF-8') ?>
                 </a>
             </h2>
