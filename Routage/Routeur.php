@@ -8,17 +8,23 @@ class Routeur
     private $controleurAvis;
     private $controleurErreur;
     private $controleurUtilisateur;
+    private $controleurAccueil;
+    private $controleurRecits;
 
     public function __construct(
         ControleurRecette $controleurRecette,
         ControleurAvis $controleurAvis,
         ControleurErreur $controleurErreur,
-        ControleurUtilisateur $controleurUtilisateur
+        ControleurUtilisateur $controleurUtilisateur,
+        ControleurAccueil $controleurAccueil,
+        ControleurRecits $controleurRecits
     ) {
         $this->controleurRecette = $controleurRecette;
         $this->controleurAvis = $controleurAvis;
         $this->controleurErreur = $controleurErreur;
         $this->controleurUtilisateur = $controleurUtilisateur;
+        $this->controleurAccueil = $controleurAccueil;
+        $this->controleurRecits = $controleurRecits;
     }
 
     public function router(): void
@@ -26,12 +32,21 @@ class Routeur
         $action = $_GET['action'] ?? 'recettes';
 
         switch ($action) {
+
+            case 'accueil':
+                $this->controleurAccueil->index();
+                break;
+
             case 'recettes':
                 $this->controleurRecette->index();
                 break;
 
             case 'recette':
                 $this->controleurRecette->afficher($this->lireIdGet());
+                break;
+
+            case 'recits':
+                $this->controleurRecits->index();
                 break;
 
             case 'connexion':

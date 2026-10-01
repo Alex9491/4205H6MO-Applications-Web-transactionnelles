@@ -12,6 +12,8 @@ require_once __DIR__ . '/Vues/Vue.php';
 require_once __DIR__ . '/Services/Authentification.php';
 require_once __DIR__ . '/Controleurs/ControleurUtilisateur.php';
 require_once __DIR__ . '/Controleurs/ControleurRecette.php';
+require_once __DIR__ . '/Controleurs/ControleurAccueil.php';
+require_once __DIR__ . '/Controleurs/ControleurRecits.php';
 require_once __DIR__ . '/Controleurs/ControleurAvis.php';
 require_once __DIR__ . '/Controleurs/ControleurErreur.php';
 require_once __DIR__ . '/Routage/Routeur.php';
@@ -29,7 +31,9 @@ $controleurUtilisateur = new ControleurUtilisateur(
 );
 $controleurRecette = new ControleurRecette($recettes,$avis,$vue,$controleurErreur);
 $controleurAvis = new ControleurAvis($recettes,$avis,$vue,$controleurErreur);
-$routeur = new Routeur($controleurRecette,$controleurAvis,$controleurErreur,$controleurUtilisateur);
+$controleurAccueil = new ControleurAccueil($vue);
+$controleurRecits = new ControleurRecits($vue);
+$routeur = new Routeur($controleurRecette,$controleurAvis,$controleurErreur,$controleurUtilisateur,$controleurAccueil,$controleurRecits);
 
 try {
     $routeur->router();
