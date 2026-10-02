@@ -1,9 +1,11 @@
 USE `mydb`;
 
+/*
 INSERT INTO `Utilisateurs` (`idUtilisateurs`, `nom`, `courriel`, `motdepasse`, `role`) VALUES
 (1, 'Alex', 'alex@gmail.com', '123', 'user'),
 (2, 'William', 'william@gmail.com', '123', 'user'),
 (3, 'Admin', 'admin@gmail.com', '123', 'admin');
+*/
 
 INSERT INTO `Categories` (`idcategorie`, `nom`) VALUES
 (1, 'Plats'),
