@@ -26,4 +26,18 @@ class Recette extends Modele
 
         return $recette ?: null;
     }
+
+    public function modifier(int $id, string $nom, string $description): void
+    {
+    $this->executer(
+        'UPDATE Recettes
+         SET nom = :nom, description = :description
+         WHERE idrecette = :idrecette',
+        [
+            'nom' => $nom,
+            'description' => $description,
+            'idrecette' => $id,
+        ]
+    );
+}
 }

@@ -45,6 +45,16 @@ class Routeur
                 $this->controleurRecette->afficher($this->lireIdGet());
                 break;
 
+            case 'modifier-recette':
+                $id = $this->lireIdGet();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->exigerEcriture($_POST['jeton_csrf'] ?? null);
+                $this->controleurRecette->modifier($id, $_POST);
+                } else {
+                $this->controleurRecette->afficherModification($id);
+                }
+                break;
+
             case 'recits':
                 $this->controleurRecits->index();
                 break;
