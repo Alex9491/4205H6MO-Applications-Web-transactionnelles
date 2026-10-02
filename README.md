@@ -45,6 +45,36 @@ Aucune compilation n'est nécessaire pour cette version.
 
 ## Tests
 
+Création d'un compte avec validation des données
+Complété
+
+Le mot de passe du compte est enregistré sous forme hachée
+Complété
+
+Connexion avec un compte valide
+Complété
+
+Connexion invalide refusée
+Complété
+
+Affichage du nom de l'utilisateur connecté dans le gabarit
+Complété
+
+Déconnexion
+Complété
+
+Formulaire de modification prérempli
+Complété
+
+Modification invalide refusée
+Complété
+
+Modification valide enregistrée
+Complété
+
+URL lisibles pour la liste, le détail et la modification
+Complété
+
 Ajouter un avis à une recette
 Complété
 
@@ -78,3 +108,7 @@ Complété
 ## Configurations
 
 La connexion à la base de données utilise PDO et les variables d'environnement `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` et `DB_PASSWORD`.
+
+L'application utilise une organisation orientée objet de type MVC. Les modèles héritent de `Modele`, les contrôleurs gèrent les actions et `Vue` centralise le rendu des pages.
+
+Les principales routes disponibles sont `accueil`, `recettes`, `recette/{id}`, `recits`, `connexion` et `inscription`. Les actions de traitement comme `authentifier`, `inscrire` et `deconnexion` utilisent des requêtes POST.
