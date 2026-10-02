@@ -25,13 +25,14 @@ USE `mydb` ;
 -- Table `mydb`.`Utilisateurs`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Utilisateurs` (
-  `idUtilisateurs` INT NOT NULL,
-  `nom` VARCHAR(100) NULL,
-  `courriel` VARCHAR(255) NULL,
-  `motdepasse` VARCHAR(255) NULL,
-  `role` VARCHAR(20) NULL,
+  `idUtilisateurs` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(100) NOT NULL,
+  `courriel` VARCHAR(255) NOT NULL,
+  `motdepasse` VARCHAR(255) NOT NULL,
+  `role` VARCHAR(20) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`idUtilisateurs`),
-  UNIQUE INDEX `nom_UNIQUE` (`nom` ASC) VISIBLE)
+  UNIQUE INDEX `courriel_UNIQUE` (`courriel` ASC) VISIBLE
+)
 ENGINE = InnoDB;
 
 
@@ -134,8 +135,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Avis`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Avis` (
-  `idavis` INT NOT NULL,
-  `idutilisateur` INT NOT NULL,
+  `idavis` INT NOT NULL AUTO_INCREMENT,
+  `idutilisateur` INT NULL,
   `idrecette` INT NOT NULL,
   `note` INT NULL,
   `dateavis` DATETIME NULL,

@@ -17,4 +17,20 @@ class Utilisateur extends Modele
 
         return $utilisateur ?: null;
     }
+
+    public function ajouter(string $nom,string $courriel,string $motDePasse): int {
+    $hachage = password_hash($motDePasse, PASSWORD_DEFAULT);
+
+    $this->executer(
+        'INSERT INTO Utilisateurs (nom, courriel, motdepasse)
+         VALUES (:nom, :courriel, :motdepasse)',
+        [
+            'nom' => $nom,
+            'courriel' => $courriel,
+            'motdepasse' => $hachage,
+        ]
+    );
+
+    return (int) $this->pdo->lastInsertId();
+}
 }

@@ -16,7 +16,7 @@ declare(strict_types=1);
         value="<?= htmlspecialchars(jetonCsrf(), ENT_QUOTES, 'UTF-8') ?>"
     >
 
-    <label for="identifiant">Identifiant</label>
+    <label for="identifiant">Courriel</label>
     <input id="identifiant" name="identifiant"
         value="<?= htmlspecialchars($identifiant, ENT_QUOTES, 'UTF-8') ?>"
         autocomplete="username" required

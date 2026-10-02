@@ -49,6 +49,15 @@ class Routeur
                 $this->controleurRecits->index();
                 break;
 
+            case 'inscription':
+                $this->controleurUtilisateur->inscription();
+                break;
+
+            case 'inscrire':
+                $this->exigerEcriture($_POST['jeton_csrf'] ?? null);
+                $this->controleurUtilisateur->inscrire($_POST);
+                break;
+
             case 'connexion':
                 $this->controleurUtilisateur->connexion();
                 break;
