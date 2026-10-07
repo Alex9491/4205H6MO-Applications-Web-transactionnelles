@@ -1,114 +1,125 @@
 # Collection collaborative de recettes et de menus
 
-Cette application web permet permet aux utilisateur de créer, regarder, partager, supprimer et ajouter leur avis sur des recettes et menus déja créées.
+Cette application web permet aux utilisateurs de créer, consulter et gérer des recettes et des menus, ainsi que d'ajouter des avis et des favoris.
 
-L'application permet de résoudre le problème de la difficulté à organiser des recettes et des menus.
+Cette version utilise Laravel 12, PHP 8.2, Apache et MySQL avec Docker.
 
 ## Prérequis
 
-- AMPPS
-- Apache
-- PHP 8.2
-- MySQL
+- Docker Desktop
 - Git
 - Un navigateur Web
-- Xdebug
 
 ## Installation
 
-1. Récupérer le dépôt.
-2. Importer le fichier `database/mydb.sql` dans MySQL.
-3. Exécuter ensuite le fichier `database/ajout-10-lignes.sql` dans MySQL.
-4. Adapter la configuration locale sans versionner les secrets.
+1. Récupérer le dépôt :
+
+bash
+git clone <URL_DU_DEPOT>
+cd ProjetWeb
+
+2. Copier le fichier d'environnement :
+
+bash
+cp .env.example .env
+
+Sous PowerShell :
+
+powershell
+Copy-Item .env.example .env
+
+3. Vérifier la configuration Docker :
+
+powershell
+docker compose config --quiet
+
+4. Construire et démarrer l'application :
+
+powershell
+docker compose up --build -d
+
+5. Installer les dépendances PHP :
+
+powershell
+docker compose exec app composer install
+
+6. Générer la clé Laravel :
+
+powershell
+docker compose exec app php artisan key:generate
+
+7. Créer les tables de la base de données :
+
+powershell
+docker compose exec app php artisan migrate
 
 ## Démarrage
 
-Ajouter le bloc suivant dans le fichier de configuration Apache utilisé par AMPPS, en adaptant le chemin physique :
+Une fois les conteneurs démarrés, l'application est accessible à :
 
-    Alias /projet "C:\ProjetWeb"
+http://localhost:8080
 
-    <Directory "C:\ProjetWeb">
-    Options -Indexes +FollowSymLinks
-    AllowOverride All
-    Require all granted
-    </Directory>
+Pour vérifier l'état des conteneurs :
 
-Redémarrer ensuite Apache et démarrer MySQL dans AMPPS, puis ouvrir :
+powershell
+docker compose ps
 
-http://localhost/projet/
+Pour vérifier l'état des migrations :
 
+powershell
+docker compose exec app php artisan migrate:status
 
-## Constructions
+## Base de données
 
-Aucune compilation n'est nécessaire pour cette version.
+La base de données MySQL est exécutée dans un conteneur Docker.
 
+Les migrations Laravel créent les tables du domaine :
 
-## Tests
+- Utilisateurs
+- Categories
+- Recettes
+- Menus
+- Menu_Recettes
+- Favoris
+- Avis
 
-Création d'un compte avec validation des données
-Complété
+Les données MySQL sont conservées dans le volume Docker `laravel_mysql_data`.
 
-Le mot de passe du compte est enregistré sous forme hachée
-Complété
+La base de données du projet est créée à partir des migrations Laravel. Le fichier SQL de l'ancienne version PHP n'est pas utilisé pour créer la base Laravel.
 
-Connexion avec un compte valide
-Complété
+## Configuration
 
-Connexion invalide refusée
-Complété
+Les paramètres de connexion à MySQL sont définis dans `.env` à partir de `.env.example`.
 
-Affichage du nom de l'utilisateur connecté dans le gabarit
-Complété
+Les informations sensibles et le fichier `.env` ne doivent pas être versionnés.
 
-Déconnexion
-Complété
+## Tests des migrations
 
-Formulaire de modification prérempli
-Complété
+Pour recréer complètement la base de données à partir des migrations :
 
-Modification invalide refusée
-Complété
+powershell
+docker compose exec app php artisan migrate:fresh
 
-Modification valide enregistrée
-Complété
+Pour vérifier les migrations :
 
-URL lisibles pour la liste, le détail et la modification
-Complété
+powershell
+docker compose exec app php artisan migrate:status
 
-Ajouter un avis à une recette
-Complété
+## CI
 
-Supprimer un avis après confirmation
-Complété
+Le projet utilise GitHub Actions pour construire l'image Docker et vérifier la syntaxe PHP de `public/index.php`.
 
-Liste et détail des recettes fonctionnent
-Complété
+Le fichier de configuration se trouve dans :
 
-Un identifiant ou une action inconnue retourne une page 404
-Complété
+text
+.github/workflows/ci.yml
 
-Le formulaire d'ajout d'un avis refuse les valeurs invalides et conserve les valeurs valides
-Complété
+## Arrêter l'application
 
-Une soumission valide crée un avis et redirige vers la recette
-Complété
+powershell
+docker compose down
 
-La confirmation affiche l'avis sans le supprimer et Annuler retourne à la recette
-Complété
+Pour arrêter les conteneurs sans supprimer les données MySQL :
 
-La confirmation par POST supprime l'avis et redirige vers la recette
-Complété
-
-Une action d'écriture appelée avec GET retourne 405 et un jeton CSRF invalide retourne 403
-Complété
-
-Une actualisation après une redirection ne répète pas la création ou la suppression
-Complété
-
-## Configurations
-
-La connexion à la base de données utilise PDO et les variables d'environnement `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` et `DB_PASSWORD`.
-
-L'application utilise une organisation orientée objet de type MVC. Les modèles héritent de `Modele`, les contrôleurs gèrent les actions et `Vue` centralise le rendu des pages.
-
-Les principales routes disponibles sont `accueil`, `recettes`, `recette/{id}`, `recits`, `connexion` et `inscription`. Les actions de traitement comme `authentifier`, `inscrire` et `deconnexion` utilisent des requêtes POST.
+powershell
+docker compose down
