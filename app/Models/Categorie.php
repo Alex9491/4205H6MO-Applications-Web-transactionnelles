@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Models;
@@ -15,6 +14,10 @@ class Categorie extends Model
 
     protected $primaryKey = 'idcategorie';
 
+    public $incrementing = false;
+
+    protected $keyType = 'int';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -23,6 +26,10 @@ class Categorie extends Model
 
     public function recettes(): HasMany
     {
-        return $this->hasMany(Recette::class, 'idcategorie', 'idcategorie');
+        return $this->hasMany(
+            Recette::class,
+            'idcategorie',
+            'idcategorie'
+        );
     }
 }
