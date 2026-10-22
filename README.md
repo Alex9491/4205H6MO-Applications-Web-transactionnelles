@@ -192,7 +192,7 @@ Critères d'acceptation :
 - Les modifications sont enregistrées dans la base de données.
 - La recette affiche les nouvelles informations après la modification.
 
-### 7. Supprimer une recette
+**### 7. Supprimer une recette**
 
 **Statut : Complété**
 
@@ -200,8 +200,9 @@ En tant que user, je veux supprimer une recette.
 
 Critères d'acceptation :
 
-- L'utilisateur doit confirmer la suppression de la recette.
 - La recette est supprimée de la base de données.
+- Les avis associés sont supprimés avant la recette.
+- La suppression fonctionne sans erreur de contrainte de clé étrangère.
 - La recette supprimée n'apparaît plus dans la liste des recettes.
 
 ### 8. Créer un menu
@@ -307,6 +308,7 @@ Les routes suivantes sont disponibles pour la gestion des recettes.
 | GET          | `/recettes/{recette}/edit` | Afficher le formulaire de modification |
 | PATCH        | `/recettes/{recette}`      | Enregistrer les modifications          |
 | DELETE       | `/recettes/{recette}`      | Supprimer une recette                  |
+| GET          | `/recits/`                 | Afficher les récits utilisateurs       |
 
 Pour afficher toutes les routes enregistrées dans Laravel :
 
@@ -316,9 +318,11 @@ docker compose exec app php artisan route:list
 
 ## Décision concernant les transactions
 
-Aucune transaction n'est nécessaire pour la création d'une recette, car cette opération effectue une seule écriture principale dans la table `Recettes`. Les autres opérations actuelles ne nécessitent pas de regrouper plusieurs écritures inséparables.
+Une transaction est nécessaire lors de la suppression d'une recette, car cette opération implique plusieurs écritures liées dans la base de données.
 
-Une transaction sera ajoutée si une fonctionnalité future exige que plusieurs écritures réussissent ou échouent ensemble.
+Les avis associés à la recette sont supprimés avant la recette afin de respecter la contrainte de clé étrangère entre les tables `Avis` et `Recettes`. Les deux opérations sont exécutées dans une transaction pour garantir qu'elles réussissent ensemble ou qu'elles sont annulées en cas d'erreur.
+
+Aucune transaction n'est nécessaire pour la création d'une recette, car cette opération effectue une seule écriture principale dans la table `Recettes`.
 
 ## CI
 
