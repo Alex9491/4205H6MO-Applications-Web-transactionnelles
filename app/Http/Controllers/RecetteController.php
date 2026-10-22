@@ -8,6 +8,7 @@ use App\Models\Recette;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class RecetteController extends Controller
 {
@@ -79,9 +80,12 @@ class RecetteController extends Controller
 
     public function destroy(Recette $recette): RedirectResponse
     {
+    DB::transaction(function () use ($recette) {
+        $recette->avis()->delete();
         $recette->delete();
+    });
 
-        return redirect()->route('recettes.index')
-            ->with('status', 'Recette supprimée avec succès.');
+    return redirect()->route('recettes.index')
+        ->with('status', 'Recette supprimée avec succès.');
     }
 }
