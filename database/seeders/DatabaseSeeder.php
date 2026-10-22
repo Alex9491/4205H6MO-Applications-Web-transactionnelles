@@ -3,23 +3,43 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Categorie;
+use App\Models\Recette;
+use App\Models\Avis;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $utilisateur = User::firstOrCreate(
+        ['courriel' => 'gestionnaire@example.test'],
+        ['nom' => 'Gestionnaire des recettes',
+        'motdepasse' => 'password',
+        'role' => 'user',
+        ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $categorie = Categorie::factory()->create();
+
+        $recettes = Recette::factory()
+            ->count(12)
+            ->create([
+                'idutilisateur' => $utilisateur->idUtilisateurs,
+                'idcategorie' => $categorie->idcategorie,
+            ]);
+
+        foreach ($recettes as $recette) {
+            Avis::factory()
+                ->count(2)
+                ->create([
+                    'idutilisateur' => $utilisateur->idUtilisateurs,
+                    'idrecette' => $recette->idrecette,
+                ]);
+        }
+
+        Avis::factory()->sansUtilisateur()->create([
+            'idrecette' => $recettes->first()->idrecette,
         ]);
     }
 }
