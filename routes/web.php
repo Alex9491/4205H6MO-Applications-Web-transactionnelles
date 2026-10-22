@@ -8,3 +8,7 @@ Route::get('/', function () {
 });
 
 Route::resource('recettes', RecetteController::class);
+
+Route::get('/recits', function () {
+    return view('recits');
+})->name('recits');

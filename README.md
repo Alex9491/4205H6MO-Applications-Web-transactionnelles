@@ -14,59 +14,76 @@ Cette version utilise Laravel 12, PHP 8.2, Apache et MySQL avec Docker.
 
 1. Récupérer le dépôt :
 
-bash
-git clone <URL_DU_DEPOT>
-cd ProjetWeb
+    bash
+
+    git clone <URL_DU_DEPOT>
+
+    cd ProjetWeb
 
 2. Copier le fichier d'environnement :
 
-bash
-cp .env.example .env
+    bash
 
-Sous PowerShell :
+    cp .env.example .env
 
-powershell
-Copy-Item .env.example .env
+    Sous PowerShell :
+
+    powershell
+
+    Copy-Item .env.example .env
 
 3. Vérifier la configuration Docker :
 
-powershell
-docker compose config --quiet
+    powershell
+
+    docker compose config --quiet
 
 4. Construire et démarrer l'application :
 
-powershell
-docker compose up --build -d
+    powershell
+
+    docker compose up --build -d
 
 5. Installer les dépendances PHP :
 
-powershell
-docker compose exec app composer install
+    powershell
+
+    docker compose exec app composer install
 
 6. Générer la clé Laravel :
 
-powershell
-docker compose exec app php artisan key:generate
+    powershell
+
+    docker compose exec app php artisan key:generate
 
 7. Créer les tables de la base de données :
 
-powershell
-docker compose exec app php artisan migrate
+    powershell
+
+    docker compose exec app php artisan migrate
+
+8. Charger les données de démonstration :
+
+    powershell
+
+    docker compose exec app php artisan db:seed
 
 ## Démarrage
 
-Une fois les conteneurs démarrés, l'application est accessible à :
+Une fois les conteneurs démarrés, l'application est accessible à l'adresse suivante :
 
-http://localhost:8080
+[http://localhost:8080](http://localhost:8080)
 
 Pour vérifier l'état des conteneurs :
 
 powershell
+
 docker compose ps
 
 Pour vérifier l'état des migrations :
 
 powershell
+
 docker compose exec app php artisan migrate:status
 
 ## Base de données
@@ -98,12 +115,16 @@ Les informations sensibles et le fichier `.env` ne doivent pas être versionnés
 Pour recréer complètement la base de données à partir des migrations :
 
 powershell
+
 docker compose exec app php artisan migrate:fresh
 
 Pour vérifier les migrations :
 
 powershell
+
 docker compose exec app php artisan migrate:status
+
+**Attention :** la commande `migrate:fresh` supprime les tables existantes. Ne l'exécute pas si tu veux conserver tes données.
 
 ## Récits utilisateurs
 
@@ -149,6 +170,8 @@ Critères d'acceptation :
 
 ### 5. Créer une recette
 
+**Statut : Complété**
+
 En tant que user, je veux créer une recette.
 
 Critères d'acceptation :
@@ -159,6 +182,8 @@ Critères d'acceptation :
 
 ### 6. Modifier une recette
 
+**Statut : Complété**
+
 En tant que user, je veux modifier une recette.
 
 Critères d'acceptation :
@@ -168,6 +193,8 @@ Critères d'acceptation :
 - La recette affiche les nouvelles informations après la modification.
 
 ### 7. Supprimer une recette
+
+**Statut : Complété**
 
 En tant que user, je veux supprimer une recette.
 
@@ -267,21 +294,54 @@ Critères d'acceptation :
 - Le compte de l'utilisateur est supprimé de la base de données.
 - L'utilisateur supprimé n'apparaît plus dans la liste des utilisateurs.
 
+## Routes principales
+
+Les routes suivantes sont disponibles pour la gestion des recettes.
+
+| Méthode HTTP | Route                      | Fonction                               |
+| ------------ | -------------------------- | -------------------------------------- |
+| GET          | `/recettes`                | Afficher la liste des recettes         |
+| GET          | `/recettes/create`         | Afficher le formulaire de création     |
+| POST         | `/recettes`                | Enregistrer une nouvelle recette       |
+| GET          | `/recettes/{recette}`      | Afficher le détail d'une recette       |
+| GET          | `/recettes/{recette}/edit` | Afficher le formulaire de modification |
+| PATCH        | `/recettes/{recette}`      | Enregistrer les modifications          |
+| DELETE       | `/recettes/{recette}`      | Supprimer une recette                  |
+
+Pour afficher toutes les routes enregistrées dans Laravel :
+
+powershell
+
+docker compose exec app php artisan route:list
+
+## Décision concernant les transactions
+
+Aucune transaction n'est nécessaire pour la création d'une recette, car cette opération effectue une seule écriture principale dans la table `Recettes`. Les autres opérations actuelles ne nécessitent pas de regrouper plusieurs écritures inséparables.
+
+Une transaction sera ajoutée si une fonctionnalité future exige que plusieurs écritures réussissent ou échouent ensemble.
+
 ## CI
 
 Le projet utilise GitHub Actions pour construire l'image Docker et vérifier la syntaxe PHP de `public/index.php`.
 
 Le fichier de configuration se trouve dans :
 
-text
 .github/workflows/ci.yml
 
 ## Arrêter l'application
 
-powershell
-docker compose down
-
-Pour arrêter les conteneurs sans supprimer les données MySQL :
+Pour arrêter les conteneurs :
 
 powershell
+
 docker compose down
+
+Cette commande conserve les données du volume MySQL.
+
+Pour arrêter les conteneurs et supprimer également le volume de données MySQL :
+
+powershell
+
+docker compose down -v
+
+**Attention :** cette dernière commande supprime le volume de données de la base de données.
