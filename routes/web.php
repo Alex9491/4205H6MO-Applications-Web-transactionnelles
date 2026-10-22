@@ -7,5 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('recettes', RecetteController::class)
-    ->only(['index', 'show']);
+Route::resource('recettes', RecetteController::class);

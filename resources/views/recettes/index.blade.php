@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +7,14 @@
 </head>
 <body>
     <h1>Liste des recettes</h1>
+
+    @if (session('status'))
+        <p>{{ session('status') }}</p>
+    @endif
+
+    <p>
+        <a href="{{ route('recettes.create') }}">Créer une recette</a>
+    </p>
 
     @forelse ($recettes as $recette)
         <article>
