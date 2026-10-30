@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetteController;
+use App\Http\Controllers\RechercheRecetteController;
 
 Route::get('/', function () {
     return redirect()->route('recettes.index');
