@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Recette;
+use Illuminate\Http\JsonResponse;
 
 class RechercheRecetteController extends Controller
 {

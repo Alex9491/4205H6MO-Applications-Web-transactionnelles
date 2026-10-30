@@ -8,6 +8,9 @@ Route::get('/', function () {
     return redirect()->route('recettes.index');
 });
 
+Route::get('/recherche/recettes', RechercheRecetteController::class)
+    ->name('recherche.recettes');
+
 Route::resource('recettes', RecetteController::class);
 
 Route::get('/recits', function () {
