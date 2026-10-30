@@ -7,7 +7,7 @@
 <body>
     <h1>Créer une recette</h1>
 
-    <form method="post" action="{{ route('recettes.store') }}">
+    <form method="post" action="{{ route('recettes.store') }}" enctype="multipart/form-data">
         @include('recettes._form', ['recette' => null])
     </form>
 

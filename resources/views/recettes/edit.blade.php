@@ -7,7 +7,7 @@
 <body>
     <h1>Modifier une recette</h1>
 
-    <form method="post" action="{{ route('recettes.update', $recette) }}">
+    <form method="post" action="{{ route('recettes.update', $recette) }}" enctype="multipart/form-data">
         @method('PATCH')
         @include('recettes._form')
     </form>

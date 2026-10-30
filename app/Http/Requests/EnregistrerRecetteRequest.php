@@ -21,6 +21,7 @@ class EnregistrerRecetteRequest extends FormRequest
                 'integer',
                 'exists:Categories,idcategorie',
             ],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ];
     }
 }

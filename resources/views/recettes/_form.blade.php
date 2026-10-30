@@ -32,4 +32,12 @@
     <p>{{ $message }}</p>
 @enderror
 
+<label for="image">Image</label>
+<input
+    id="image"
+    name="image"
+    type="file"
+    accept="image/jpeg,image/png,image/webp">
+@error('image') <p>{{ $message }}</p> @enderror
+
 <button type="submit">Enregistrer</button>
