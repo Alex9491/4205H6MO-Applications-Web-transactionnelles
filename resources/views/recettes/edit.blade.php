@@ -1,31 +1,39 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Modifier une recette</title>
-</head>
-<body>
-    <h1>Modifier une recette</h1>
+@extends('layouts.app')
 
-    <form method="post" action="{{ route('recettes.update', $recette) }}" enctype="multipart/form-data">
+@section('title', __('interface.edit_title'))
+
+@section('content')
+    <h1>{{ __('interface.edit_title') }}</h1>
+
+    <form
+        method="post"
+        action="{{ route('recettes.update', $recette) }}"
+        enctype="multipart/form-data"
+    >
         @method('PATCH')
         @include('recettes._form')
     </form>
 
     @if ($recette->image_path)
-        <form method="post" action="{{ route('recettes.image.destroy', $recette) }}">
+        <form
+            method="post"
+            action="{{ route('recettes.image.destroy', $recette) }}"
+        >
             @csrf
             @method('DELETE')
 
-            <button type="submit"
-                onclick="return confirm('Voulez-vous vraiment supprimer cette image ?')">
-                Supprimer l'image
+            <button
+                type="submit"
+                onclick="return confirm('{{ __('interface.confirm_delete_image') }}')"
+            >
+                {{ __('interface.delete_image') }}
             </button>
         </form>
     @endif
 
     <p>
-        <a href="{{ route('recettes.show', $recette) }}">Annuler</a>
+        <a href="{{ route('recettes.show', $recette) }}">
+            {{ __('interface.cancel') }}
+        </a>
     </p>
-</body>
-</html>
+@endsection

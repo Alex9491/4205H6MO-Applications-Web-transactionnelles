@@ -1,6 +1,6 @@
 @csrf
 
-<label for="nom">Nom</label>
+<label for="nom">{{ __('interface.name') }}</label>
 <input
     id="nom"
     name="nom"
@@ -10,15 +10,16 @@
     <p>{{ $message }}</p>
 @enderror
 
-<label for="description">Description</label>
+<label for="description">{{ __('interface.description') }}</label>
 <textarea id="description" name="description">{{ old('description', $recette?->description) }}</textarea>
 @error('description')
     <p>{{ $message }}</p>
 @enderror
 
-<label for="idcategorie">Catégorie</label>
+<label for="idcategorie">{{ __('interface.category') }}</label>
 <select id="idcategorie" name="idcategorie">
-    <option value="">Choisir une catégorie</option>
+    <option value="">{{ __('interface.choose_category') }}</option>
+
     @foreach ($categories as $categorie)
         <option
             value="{{ $categorie->idcategorie }}"
@@ -32,12 +33,15 @@
     <p>{{ $message }}</p>
 @enderror
 
-<label for="image">Image</label>
+<label for="image">{{ __('interface.image') }}</label>
 <input
     id="image"
     name="image"
     type="file"
-    accept="image/jpeg,image/png,image/webp">
-@error('image') <p>{{ $message }}</p> @enderror
+    accept="image/jpeg,image/png,image/webp"
+>
+@error('image')
+    <p>{{ $message }}</p>
+@enderror
 
-<button type="submit">Enregistrer</button>
+<button type="submit">{{ __('interface.save') }}</button>

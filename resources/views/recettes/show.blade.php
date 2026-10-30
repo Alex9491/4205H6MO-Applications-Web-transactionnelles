@@ -1,16 +1,16 @@
 @php
     use Illuminate\Support\Facades\Storage;
 @endphp
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $recette->nom }}</title>
-</head>
-<body>
+
+@extends('layouts.app')
+
+@section('title', $recette->nom)
+
+@section('content')
     <p>
-        <a href="{{ route('recettes.index') }}">Retour aux recettes</a>
+        <a href="{{ route('recettes.index') }}">
+            {{ __('interface.back_recipes') }}
+        </a>
     </p>
 
     @if (session('status'))
@@ -20,57 +20,63 @@
     <h1>{{ $recette->nom }}</h1>
 
     @if ($recette->image_path)
-    <img
-        src="{{ Storage::disk('public')->url($recette->image_path) }}"
-        alt="{{ $recette->nom }}"
-        >@endif
+        <img
+            src="{{ Storage::disk('public')->url($recette->image_path) }}"
+            alt="{{ $recette->nom }}"
+        >
+    @endif
 
     <p>
-        Auteur : {{ $recette->user?->nom ?? 'Utilisateur inconnu' }}
+        {{ __('interface.author') }} :
+        {{ $recette->user?->nom ?? __('interface.unknown_user') }}
     </p>
 
     <p>
-        Catégorie : {{ $recette->categorie?->nom ?? 'Sans catégorie' }}
+        {{ __('interface.category') }} :
+        {{ $recette->categorie?->nom ?? __('interface.no_category') }}
     </p>
 
     <p>{{ $recette->description }}</p>
 
     <p>
-        <a href="{{ route('recettes.edit', $recette) }}">Modifier</a>
+        <a href="{{ route('recettes.edit', $recette) }}">
+            {{ __('interface.edit') }}
+        </a>
     </p>
 
     <form method="post" action="{{ route('recettes.destroy', $recette) }}">
         @csrf
         @method('DELETE')
 
-        <button type="submit">Supprimer</button>
+        <button type="submit">{{ __('interface.delete') }}</button>
     </form>
 
     <hr>
 
-    <h2>Avis</h2>
+    <h2>{{ __('interface.reviews') }}</h2>
 
     @forelse ($recette->avis as $avis)
         <article>
             <p>
-                Note : {{ $avis->note ?? 'Aucune note' }}/5
+                {{ __('interface.rating') }} :
+                {{ $avis->note ?? __('interface.no_rating') }}/5
             </p>
 
             <p>
-                Auteur de l'avis :
-                {{ $avis->user?->nom ?? 'Utilisateur inconnu' }}
+                {{ __('interface.review_author') }} :
+                {{ $avis->user?->nom ?? __('interface.unknown_user') }}
             </p>
 
             @if ($avis->dateavis)
                 <p>
-                    Date : {{ $avis->dateavis->format('d/m/Y') }}
+                    {{ __('interface.date') }} :
+                    {{ $avis->dateavis->format('d/m/Y') }}
                 </p>
             @endif
         </article>
 
         <hr>
     @empty
-        <p>Aucun avis pour cette recette.</p>
+        <p>{{ __('interface.no_reviews') }}</p>
     @endforelse
-</body>
-</html>
+@endsection
