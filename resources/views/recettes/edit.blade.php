@@ -15,6 +15,11 @@
     </form>
 
     @if ($recette->image_path)
+        <img
+            src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($recette->image_path) }}"
+            alt="Image de {{ $recette->nom }}"
+        >
+
         <form
             method="post"
             action="{{ route('recettes.image.destroy', $recette) }}"
