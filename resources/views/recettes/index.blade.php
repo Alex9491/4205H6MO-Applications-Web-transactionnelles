@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', __('interface.recipes'))
@@ -10,7 +11,9 @@
     @endif
 
     <p>
-        <a href="{{ route('recettes.create') }}">Créer une recette</a>
+        <a href="{{ route('recettes.create') }}">
+            {{ __('interface.create_recipe') }}
+        </a>
     </p>
 
     <label for="search">{{ __('interface.search') }}</label>
@@ -33,11 +36,13 @@
             </h2>
 
             <p>
-                Auteur : {{ $recette->user?->nom ?? 'Utilisateur inconnu' }}
+                {{ __('interface.author') }} :
+                {{ $recette->user?->nom ?? __('interface.unknown_user') }}
             </p>
 
             <p>
-                Catégorie : {{ $recette->categorie?->nom ?? 'Sans catégorie' }}
+                {{ __('interface.category') }} :
+                {{ $recette->categorie?->nom ?? __('interface.no_category') }}
             </p>
 
             <p>{{ $recette->description }}</p>
@@ -45,7 +50,7 @@
 
         <hr>
     @empty
-        <p>Aucune recette disponible.</p>
+        <p>{{ __('interface.no_recipes') }}</p>
     @endforelse
 
     {{ $recettes->links() }}

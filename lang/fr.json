@@ -1,5 +1,6 @@
 {
     "Showing :first to :last of :total results": "Affichage de :first à :last sur :total résultats",
     "Previous": "Précédent",
-    "Next": "Suivant"
+    "Next": "Suivant",
+    "create_recipe": "Créer une recette"
 }
