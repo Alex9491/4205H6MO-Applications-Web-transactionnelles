@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,6 +18,12 @@
     @endif
 
     <h1>{{ $recette->nom }}</h1>
+
+    @if ($recette->image_path)
+    <img
+        src="{{ Storage::disk('public')->url($recette->image_path) }}"
+        alt="{{ $recette->nom }}"
+        >@endif
 
     <p>
         Auteur : {{ $recette->user?->nom ?? 'Utilisateur inconnu' }}

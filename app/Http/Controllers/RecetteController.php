@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class RecetteController extends Controller
 {
@@ -39,11 +41,23 @@ class RecetteController extends Controller
 
     $nouvelId = (Recette::query()->max('idrecette') ?? 0) + 1;
 
-    $recette = Recette::create([
-        ...$request->validated(),
-        'idrecette' => $nouvelId,
-        'idutilisateur' => $user->idUtilisateurs,
-    ]);
+    $data = $request->safe()->except('image');
+
+    $path = $request->file('image')?->store('recettes', 'public');
+
+    try {
+        $recette = Recette::create([
+            ...$data,
+            'idrecette' => $nouvelId,
+            'idutilisateur' => $user->idUtilisateurs,
+            'image_path' => $path,
+        ]);
+    } catch (Throwable $exception) {
+        if ($path) {
+            Storage::disk('public')->delete($path);
+        }
+        throw $exception;
+    }
 
     return redirect()->route('recettes.show', $recette)
         ->with('status', 'Recette créée avec succès.');
