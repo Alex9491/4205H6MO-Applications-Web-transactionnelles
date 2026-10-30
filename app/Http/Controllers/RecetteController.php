@@ -86,18 +86,42 @@ class RecetteController extends Controller
         EnregistrerRecetteRequest $request,
         Recette $recette
     ): RedirectResponse {
-        $recette->update($request->validated());
+    $data = $request->safe()->except('image');
+    $newPath = $request->file('image')?->store('recettes', 'public');
+    $oldPath = $recette->image_path;
 
-        return redirect()->route('recettes.show', $recette)
-            ->with('status', 'Recette modifiée avec succès.');
+    try {
+        $recette->update([
+            ...$data,
+            ...($newPath ? ['image_path' => $newPath] : []),
+        ]);
+    } catch (Throwable $exception) {
+        if ($newPath) {
+            Storage::disk('public')->delete($newPath);
+        }
+        throw $exception;
+    }
+
+    if ($newPath && $oldPath) {
+        Storage::disk('public')->delete($oldPath);
+    }
+
+    return redirect()->route('recettes.show', $recette)
+        ->with('status', 'Recette modifiée avec succès.');
     }
 
     public function destroy(Recette $recette): RedirectResponse
     {
+    $imagePath = $recette->image_path;
+
     DB::transaction(function () use ($recette) {
         $recette->avis()->delete();
         $recette->delete();
     });
+
+    if ($imagePath) {
+        Storage::disk('public')->delete($imagePath);
+    }
 
     return redirect()->route('recettes.index')
         ->with('status', 'Recette supprimée avec succès.');
