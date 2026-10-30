@@ -28,6 +28,7 @@ class Recette extends Model
         'idcategorie',
         'nom',
         'description',
+        'image_path',
     ];
 
     protected function casts(): array
