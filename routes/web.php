@@ -15,6 +15,9 @@ Route::get('/recherche/recettes', RechercheRecetteController::class)
 
 Route::resource('recettes', RecetteController::class);
 
+Route::delete('/recettes/{recette}/image', [RecetteController::class, 'destroyImage'])
+    ->name('recettes.image.destroy');
+
 Route::get('/recits', function () {
     return view('recits');
 })->name('recits');

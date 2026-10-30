@@ -110,6 +110,25 @@ class RecetteController extends Controller
         ->with('status', 'Recette modifiée avec succès.');
     }
 
+
+    public function destroyImage(Recette $recette): RedirectResponse
+    {
+    $imagePath = $recette->image_path;
+
+    if (!$imagePath) {
+        return back()->with('status', 'Aucune image à supprimer.');
+    }
+
+    $recette->update([
+        'image_path' => null,
+    ]);
+
+    Storage::disk('public')->delete($imagePath);
+
+    return back()->with('status', 'Image supprimée avec succès.');
+    }
+
+
     public function destroy(Recette $recette): RedirectResponse
     {
     $imagePath = $recette->image_path;
