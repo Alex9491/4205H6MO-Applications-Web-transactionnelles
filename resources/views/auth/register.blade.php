@@ -26,6 +26,13 @@
         <label for="motdepasse_confirmation">Confirmation du mot de passe</label>
         <input id="motdepasse_confirmation" name="motdepasse_confirmation" type="password" required>
 
+        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+        @error('g-recaptcha-response') <p>{{ $message }}</p> @enderror
+
         <button type="submit">Créer le compte</button>
     </form>
 @endsection
+
+@push('scripts')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endpush

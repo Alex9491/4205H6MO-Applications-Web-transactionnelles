@@ -7,6 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class InscriptionController extends Controller
@@ -23,6 +26,31 @@ class InscriptionController extends Controller
             'courriel' => ['required', 'email', 'confirmed', 'max:255', 'unique:Utilisateurs,courriel'],
             'motdepasse' => ['required', 'confirmed', Password::min(8)],
         ]);
+
+        $token = $request->validate([
+    'g-recaptcha-response' => ['required', 'string'],
+])['g-recaptcha-response'];
+
+try {
+    $verification = Http::asForm()->timeout(5)->post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        [
+            'secret' => config('services.recaptcha.secret_key'),
+            'response' => $token,
+        ]
+    );
+} catch (ConnectionException $e) {
+    throw ValidationException::withMessages([
+        'g-recaptcha-response' => 'Vérification indisponible. Réessayez.',
+    ]);
+}
+
+if (! $verification->successful() || $verification->json('success') !== true) {
+    throw ValidationException::withMessages([
+        'g-recaptcha-response' => 'Veuillez refaire la vérification.',
+    ]);
+}
+
 
         $user = User::create($data);
         Auth::login($user);
