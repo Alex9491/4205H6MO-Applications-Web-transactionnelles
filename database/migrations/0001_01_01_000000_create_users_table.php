@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom', 100);
             $table->string('courriel', 255)->unique();
             $table->string('motdepasse', 255);
-            $table->string('role', 20)->default('user');
+            $table->string('role', 20)->default('member');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

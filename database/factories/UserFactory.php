@@ -16,7 +16,7 @@ class UserFactory extends Factory
             'nom' => fake()->name(),
             'courriel' => fake()->unique()->safeEmail(),
             'motdepasse' => 'password',
-            'role' => 'user',
+            'role' => 'member',
         ];
     }
 }
