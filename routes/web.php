@@ -18,7 +18,8 @@ Route::get('/compte', [CompteController::class, 'show'])
 Route::get('/recherche/recettes', RechercheRecetteController::class)
     ->name('recherche.recettes');
 
-Route::resource('recettes', RecetteController::class);
+Route::resource('recettes', RecetteController::class)
+    ->middlewareFor(['create', 'store', 'edit', 'update', 'destroy'], 'auth');
 
 Route::get('/inscription', [InscriptionController::class, 'create'])
     ->middleware('guest')->name('register');
@@ -36,6 +37,7 @@ Route::post('/deconnexion', [AuthController::class, 'logout'])
     ->middleware('auth')->name('logout');
 
 Route::delete('/recettes/{recette}/image', [RecetteController::class, 'destroyImage'])
+    ->middleware('auth')
     ->name('recettes.image.destroy');
 
 Route::get('/recits', function () {

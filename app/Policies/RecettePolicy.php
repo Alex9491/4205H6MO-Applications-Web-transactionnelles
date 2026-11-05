@@ -35,18 +35,18 @@ class RecettePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Recette $recette): bool
-    {
-        return false;
-    }
+public function update(User $user, Recette $recette): bool
+{
+    return $recette->idutilisateur === $user->idUtilisateurs;
+}
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Recette $recette): bool
-    {
-        return false;
-    }
+public function delete(User $user, Recette $recette): bool
+{
+    return $this->update($user, $recette);
+}
 
     /**
      * Determine whether the user can restore the model.

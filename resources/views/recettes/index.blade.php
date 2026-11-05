@@ -9,11 +9,11 @@
         <p>{{ session('status') }}</p>
     @endif
 
-    <p>
-        <a href="{{ route('recettes.create') }}">
-            {{ __('interface.create_recipe') }}
-        </a>
-    </p>
+@auth
+    <a href="{{ route('recettes.create') }}">
+        {{ __('interface.create_recipe') }}
+    </a>
+@endauth
 
     <label for="search">{{ __('interface.search') }}</label>
     <input id="search" type="search" autocomplete="off"
