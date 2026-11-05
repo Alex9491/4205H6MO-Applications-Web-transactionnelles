@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
         ['courriel' => 'gestionnaire@example.test'],
         ['nom' => 'Gestionnaire des recettes',
         'motdepasse' => 'password',
-        'role' => 'user',
         ]
         );
+        $utilisateur->forceFill([
+            'role' => User::ROLE_MANAGER,
+        ])->save();
 
         $categorie = Categorie::factory()->create();
 

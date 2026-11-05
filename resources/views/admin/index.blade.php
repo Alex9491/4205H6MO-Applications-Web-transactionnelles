@@ -16,4 +16,4 @@
     @empty
         <p>Aucun utilisateur trouvé.</p>
     @endforelse
-@endsections
+@endsection
