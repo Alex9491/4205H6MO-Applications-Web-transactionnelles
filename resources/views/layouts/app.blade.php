@@ -11,6 +11,10 @@
     @auth
         <a href="{{ route('account.show') }}">Mon compte</a>
 
+        @if (auth()->user()?->role === \App\Models\User::ROLE_MANAGER)
+        <a href="{{ route('admin.index') }}">Administration</a>
+        @endif
+
         <form method="post" action="{{ route('logout') }}">
             @csrf
             <button type="submit">Se déconnecter</button>

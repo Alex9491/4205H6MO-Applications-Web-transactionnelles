@@ -7,6 +7,7 @@ use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompteController;
 use App\Http\Middleware\EnsureManager;
+use App\Http\Controllers\AdministrationController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -53,6 +54,6 @@ Route::post('/langue', function (Request $request) {
 })->name('locale.update');
 
 Route::middleware(['auth', EnsureManager::class])->group(function () {
-    Route::get('/administration', fn () => 'Administration')
+    Route::get('/administration', [AdministrationController::class, 'index'])
         ->name('admin.index');
 });
