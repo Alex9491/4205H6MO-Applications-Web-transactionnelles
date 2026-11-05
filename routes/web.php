@@ -5,12 +5,13 @@ use App\Http\Controllers\RecetteController;
 use App\Http\Controllers\RechercheRecetteController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompteController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-Route::get('/', function () {
-    return redirect()->route('recettes.index');
-});
+Route::get('/', [RecetteController::class, 'index'])->name('home');
+Route::get('/compte', [CompteController::class, 'show'])
+    ->middleware('auth')->name('account.show');
 
 Route::get('/recherche/recettes', RechercheRecetteController::class)
     ->name('recherche.recettes');

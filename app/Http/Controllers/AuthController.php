@@ -21,7 +21,10 @@ class AuthController extends Controller
             'motdepasse' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials)) {
+        if (! Auth::attempt([
+            'courriel' => $credentials['courriel'],
+            'password' => $credentials['motdepasse'],
+        ])) {
             return back()
                 ->withErrors(['courriel' => 'Identifiants invalides.'])
                 ->onlyInput('courriel');
@@ -35,6 +38,7 @@ class AuthController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
