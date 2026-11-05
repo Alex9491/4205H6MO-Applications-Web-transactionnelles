@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EnregistrerRecetteRequest;
 use App\Models\Categorie;
 use App\Models\Recette;
-use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +37,6 @@ class RecetteController extends Controller
 
     public function store(EnregistrerRecetteRequest $request): RedirectResponse
     {
-    $user = User::query()->firstOrFail();
 
     $nouvelId = (Recette::query()->max('idrecette') ?? 0) + 1;
 
@@ -49,7 +48,7 @@ class RecetteController extends Controller
         $recette = Recette::create([
             ...$data,
             'idrecette' => $nouvelId,
-            'idutilisateur' => $user->idUtilisateurs,
+            'idutilisateur' => $request->user()->idUtilisateurs,
             'image_path' => $path,
         ]);
     } catch (Throwable $exception) {
@@ -77,6 +76,8 @@ class RecetteController extends Controller
 
     public function edit(Recette $recette): View
     {
+        Gate::authorize('update', $recette);
+
         $categories = Categorie::query()->orderBy('nom')->get();
 
         return view('recettes.edit', compact('recette', 'categories'));
@@ -86,6 +87,7 @@ class RecetteController extends Controller
         EnregistrerRecetteRequest $request,
         Recette $recette
     ): RedirectResponse {
+        Gate::authorize('update', $recette);
     $data = $request->safe()->except('image');
     $newPath = $request->file('image')?->store('recettes', 'public');
     $oldPath = $recette->image_path;
@@ -113,6 +115,7 @@ class RecetteController extends Controller
 
     public function destroyImage(Recette $recette): RedirectResponse
     {
+        Gate::authorize('update', $recette);
     $imagePath = $recette->image_path;
 
     if (!$imagePath) {
@@ -131,6 +134,7 @@ class RecetteController extends Controller
 
     public function destroy(Recette $recette): RedirectResponse
     {
+        Gate::authorize('delete', $recette);
     $imagePath = $recette->image_path;
 
     DB::transaction(function () use ($recette) {

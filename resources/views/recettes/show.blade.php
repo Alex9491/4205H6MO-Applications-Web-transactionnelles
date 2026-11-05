@@ -38,18 +38,22 @@
 
     <p>{{ $recette->description }}</p>
 
-    <p>
-        <a href="{{ route('recettes.edit', $recette) }}">
-            {{ __('interface.edit') }}
-        </a>
-    </p>
+    @can('update', $recette)
+        <p>
+            <a href="{{ route('recettes.edit', $recette) }}">
+                {{ __('interface.edit') }}
+            </a>
+        </p>
+    @endcan
 
-    <form method="post" action="{{ route('recettes.destroy', $recette) }}">
-        @csrf
-        @method('DELETE')
+    @can('delete', $recette)
+        <form method="post" action="{{ route('recettes.destroy', $recette) }}">
+            @csrf
+            @method('DELETE')
 
-        <button type="submit">{{ __('interface.delete') }}</button>
-    </form>
+            <button type="submit">{{ __('interface.delete') }}</button>
+        </form>
+    @endcan
 
     <hr>
 

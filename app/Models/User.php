@@ -13,6 +13,9 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    public const ROLE_MEMBER = 'member';
+    public const ROLE_MANAGER = 'manager';
+
     protected $table = 'Utilisateurs';
 
     protected $primaryKey = 'idUtilisateurs';
@@ -23,7 +26,6 @@ class User extends Authenticatable
         'nom',
         'courriel',
         'motdepasse',
-        'role',
     ];
 
     protected $hidden = [
@@ -35,6 +37,11 @@ class User extends Authenticatable
         return [
             'motdepasse' => 'hashed',
         ];
+    }
+
+    public function getAuthPasswordName(): string
+    {
+    return 'motdepasse';
     }
 
     public function avis(): HasMany

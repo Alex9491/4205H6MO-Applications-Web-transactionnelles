@@ -3,19 +3,41 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetteController;
 use App\Http\Controllers\RechercheRecetteController;
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompteController;
+use App\Http\Middleware\EnsureManager;
+use App\Http\Controllers\AdministrationController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-Route::get('/', function () {
-    return redirect()->route('recettes.index');
-});
+Route::get('/', [RecetteController::class, 'index'])->name('home');
+Route::get('/compte', [CompteController::class, 'show'])
+    ->middleware('auth')->name('account.show');
 
 Route::get('/recherche/recettes', RechercheRecetteController::class)
     ->name('recherche.recettes');
 
-Route::resource('recettes', RecetteController::class);
+Route::resource('recettes', RecetteController::class)
+    ->middlewareFor(['create', 'store', 'edit', 'update', 'destroy'], 'auth');
+
+Route::get('/inscription', [InscriptionController::class, 'create'])
+    ->middleware('guest')->name('register');
+
+Route::post('/inscription', [InscriptionController::class, 'store'])
+    ->middleware('guest')->name('register.store');
+
+Route::get('/connexion', [AuthController::class, 'create'])
+    ->middleware('guest')->name('login');
+
+Route::post('/connexion', [AuthController::class, 'login'])
+    ->middleware(['guest', 'throttle:6,1'])->name('login.store');
+
+Route::post('/deconnexion', [AuthController::class, 'logout'])
+    ->middleware('auth')->name('logout');
 
 Route::delete('/recettes/{recette}/image', [RecetteController::class, 'destroyImage'])
+    ->middleware('auth')
     ->name('recettes.image.destroy');
 
 Route::get('/recits', function () {
@@ -32,3 +54,8 @@ Route::post('/langue', function (Request $request) {
 
     return back();
 })->name('locale.update');
+
+Route::middleware(['auth', EnsureManager::class])->group(function () {
+    Route::get('/administration', [AdministrationController::class, 'index'])
+        ->name('admin.index');
+});
