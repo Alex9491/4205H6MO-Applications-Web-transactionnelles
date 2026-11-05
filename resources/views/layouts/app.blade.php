@@ -8,6 +8,16 @@
     @stack('scripts')
 </head>
 <body>
+    @auth
+    <form method="post" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Se déconnecter</button>
+    </form>
+    @else
+    <a href="{{ route('login') }}">Connexion</a>
+    <a href="{{ route('register') }}">Inscription</a>
+    @endauth
+
 
     <form method="post" action="{{ route('locale.update') }}">
         @csrf
