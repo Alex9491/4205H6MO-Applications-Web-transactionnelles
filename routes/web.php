@@ -6,6 +6,7 @@ use App\Http\Controllers\RechercheRecetteController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompteController;
+use App\Http\Middleware\EnsureManager;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -50,3 +51,8 @@ Route::post('/langue', function (Request $request) {
 
     return back();
 })->name('locale.update');
+
+Route::middleware(['auth', EnsureManager::class])->group(function () {
+    Route::get('/administration', fn () => 'Administration')
+        ->name('admin.index');
+});
