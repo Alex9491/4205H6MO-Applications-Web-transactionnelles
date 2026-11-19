@@ -52,7 +52,21 @@
         <p>{{ __('interface.no_recipes') }}</p>
     @endforelse
 
-    {{ $recettes->links() }}
+    @if ($recettes->hasPages())
+        <nav class="pagination" aria-label="Pagination">
+            @if ($recettes->onFirstPage())
+                <span class="pagination-disabled" aria-disabled="true">{{ __('pagination.previous') }}</span>
+            @else
+                <a href="{{ $recettes->previousPageUrl() }}" rel="prev">{{ __('pagination.previous') }}</a>
+            @endif
+
+            @if ($recettes->hasMorePages())
+                <a href="{{ $recettes->nextPageUrl() }}" rel="next">{{ __('pagination.next') }}</a>
+            @else
+                <span class="pagination-disabled" aria-disabled="true">{{ __('pagination.next') }}</span>
+            @endif
+        </nav>
+    @endif
 @endsection
 
 @push('scripts')
