@@ -34,4 +34,5 @@ return [
     'review_author' => 'Review author',
     'date' => 'Date',
     'no_reviews' => 'No reviews for this recipe.',
+    'email_taken' => 'The email has already been taken.',
 ];

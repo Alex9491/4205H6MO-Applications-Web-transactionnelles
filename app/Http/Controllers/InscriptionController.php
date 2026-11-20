@@ -25,6 +25,8 @@ class InscriptionController extends Controller
             'nom' => ['required', 'string', 'max:100'],
             'courriel' => ['required', 'email', 'confirmed', 'max:255', 'unique:Utilisateurs,courriel'],
             'motdepasse' => ['required', 'confirmed', Password::min(8)],
+        ], [
+            'courriel.unique' => __('interface.email_taken'),
         ]);
 
         $token = $request->validate([

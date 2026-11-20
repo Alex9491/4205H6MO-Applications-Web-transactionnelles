@@ -34,4 +34,5 @@ return [
     'review_author' => "Auteur de l'avis",
     'date' => 'Date',
     'no_reviews' => 'Aucun avis pour cette recette.',
+    'email_taken' => 'Ce courriel est déjà utilisé.',
 ];

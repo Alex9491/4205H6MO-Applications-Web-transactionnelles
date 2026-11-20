@@ -22,7 +22,7 @@ class RecetteController extends Controller
                 'categorie:idcategorie,nom',
             ])
             ->orderBy('nom')
-            ->paginate(10);
+            ->paginate(12);
 
         return view('recettes.index', compact('recettes'));
     }
