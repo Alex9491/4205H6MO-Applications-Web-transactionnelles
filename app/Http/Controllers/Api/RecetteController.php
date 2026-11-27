@@ -33,30 +33,32 @@ class RecetteController extends Controller
      */
     public function store(EnregistrerRecetteApiRequest $request)
     {
-    $data = $request->safe()->except('image');
-    $path = $request->file('image')?->store('recettes', 'public');
+        $nouvelId = (Recette::query()->max('idrecette') ?? 0) + 1;
+        $data = $request->safe()->except('image');
+        $path = $request->file('image')?->store('recettes', 'public');
 
-    try {
-        $recette = $request->user()->recettes()->create([
-            ...$data,
-            'image_path' => $path,
-        ]);
-    } catch (Throwable $exception) {
-        if ($path) {
-            Storage::disk('public')->delete($path);
+        try {
+            $recette = $request->user()->recettes()->create([
+                ...$data,
+                'idrecette' => $nouvelId,
+                'image_path' => $path,
+            ]);
+        } catch (Throwable $exception) {
+            if ($path) {
+                Storage::disk('public')->delete($path);
+            }
+
+            throw $exception;
         }
 
-        throw $exception;
-    }
-
-    return (new RecetteResource(
-        $recette->load([
-            'user:idUtilisateurs,nom',
-            'categorie:idcategorie,nom',
-        ])
-    ))
-        ->response()
-        ->setStatusCode(201);
+        return (new RecetteResource(
+            $recette->load([
+                'user:idUtilisateurs,nom',
+                'categorie:idcategorie,nom',
+            ])
+        ))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
