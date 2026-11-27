@@ -77,16 +77,57 @@ class RecetteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EnregistrerRecetteApiRequest $request, int $id): RecetteResource
     {
-        //
+    $recette = Recette::query()->findOrFail($id);
+
+    $data = $request->safe()->except('image');
+    $newPath = $request->file('image')?->store('recettes', 'public');
+    $oldPath = $recette->image_path;
+
+    if ($newPath) {
+        $data['image_path'] = $newPath;
+    }
+
+    try {
+        $recette->update($data);
+    } catch (Throwable $exception) {
+        if ($newPath) {
+            Storage::disk('public')->delete($newPath);
+        }
+
+        throw $exception;
+    }
+
+    if ($newPath && $oldPath) {
+        Storage::disk('public')->delete($oldPath);
+    }
+
+    return new RecetteResource(
+        $recette->load([
+            'user:idUtilisateurs,nom',
+            'categorie:idcategorie,nom',
+        ])
+    );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+    $recette = Recette::query()->findOrFail($id);
+
+    Gate::authorize('delete', $recette);
+
+    $oldPath = $recette->image_path;
+
+    $recette->delete();
+
+    if ($oldPath) {
+        Storage::disk('public')->delete($oldPath);
+    }
+
+    return response()->noContent();
     }
 }
