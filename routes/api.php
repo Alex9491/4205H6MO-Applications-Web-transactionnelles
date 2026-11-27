@@ -3,6 +3,14 @@
 use App\Http\Controllers\Api\RecetteController;
 use Illuminate\Support\Facades\Route;
 
-Route::apiResource('recettes', RecetteController::class)
-    ->names('api.recettes')
-    ->only(['index', 'show']);
+Route::middleware('throttle:60,1')->group(function () {
+    Route::apiResource('recettes', RecetteController::class)
+        ->names('api.recettes')
+        ->only(['index', 'show']);
+});
+
+Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+    Route::apiResource('recettes', RecetteController::class)
+        ->names('api.recettes')
+        ->only(['store', 'update', 'destroy']);
+});
