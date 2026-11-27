@@ -29,7 +29,7 @@ class RecettePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return in_array($user->role, [User::ROLE_MEMBER, User::ROLE_MANAGER], true);
     }
 
     /**
