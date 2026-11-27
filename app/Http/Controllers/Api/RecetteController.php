@@ -38,7 +38,14 @@ class RecetteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $recette = Recette::query()
+            ->with([
+                'user:idUtilisateurs,nom',
+                'categorie:idcategorie,nom',
+            ])
+            ->findOrFail($id);
+
+        return new RecetteResource($recette);
     }
 
     /**
